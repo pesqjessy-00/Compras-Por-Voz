@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#245c4a"><title>Compras por Voz</title>
+<link rel="manifest" href="manifest.webmanifest"><link rel="stylesheet" href="styles.css">
+<link rel="manifest" href="./manifest.json">
+<link rel="icon" href="./icon.svg" type="image/svg+xml">
+</head>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js')
+      .catch(err => console.warn('Error al registrar PWA:', err));
+  });
+}
+</script>
+<body>
+<header><div class="brand-mark">✓</div><div><h1>Compras</h1><p>Tu lista, sin olvidar nada</p></div><button id="settingsBtn" class="icon-btn" aria-label="Administrar lugares">⚙</button></header>
+<main>
+<section class="voice-card"><div class="voice-copy"><span class="eyebrow">CAPTURA RÁPIDA</span><h2>¿Qué necesitas comprar?</h2><p>Di: “Comprar leche, huevos y pan, mercado”.</p></div><button id="voiceBtn" class="mic-btn" aria-label="Dictar compra"><span>🎙</span><small>Hablar</small></button>
+<div class="manual-row"><input id="commandInput" placeholder="Ej. comprar leche y pan mercado" autocomplete="off"><button id="parseBtn" class="primary">Revisar</button></div><p id="voiceStatus" class="status" aria-live="polite">Puedes dictar o escribir tu compra.</p></section>
+<section id="preview" class="preview hidden"><div class="section-head"><h2>Revisa antes de guardar</h2><span class="pill">Vista previa</span></div><div id="previewItems"></div><label class="field-label" for="previewPlace">Lugar de compra</label><select id="previewPlace"></select><div class="actions"><button id="cancelPreview" class="secondary">Cancelar</button><button id="savePreview" class="primary">Guardar productos</button></div></section>
+<section class="list-section"><div class="section-head"><div><span class="eyebrow">TU ORGANIZACIÓN</span><h2>Listas por lugar</h2></div><button id="addManualBtn" class="text-btn">+ Agregar</button></div><div id="lists"></div></section>
+<section id="settings" class="settings hidden"><div class="section-head"><h2>Administrar lugares</h2><button id="closeSettings" class="icon-btn" aria-label="Cerrar">✕</button></div><form id="placeForm"><input id="placeName" placeholder="Nombre del lugar" maxlength="40" required><input id="placeColor" type="color" value="#e6a85c" aria-label="Color del lugar"><button class="primary" type="submit">Agregar lugar</button></form><div id="placeManager"></div></section>
+<footer>Los datos se guardan en este dispositivo.</footer>
+</main><script src="app.js"></script>
+</body></html>
